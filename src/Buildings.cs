@@ -127,8 +127,8 @@ public class Buildings : MonoBehaviour {
 			{
 				String name = "preFabs/" + "toySkyscraper" + UnityEngine.Random.Range (1, 9).ToString ();
 				building = (GameObject)Instantiate (Resources.Load (name));
-				float scale = UnityEngine.Random.Range (3.5f, 7f);
-				building.transform.localScale = new Vector3 (0.5f, scale, 0.5f);
+				float scale = UnityEngine.Random.Range (3.5f, 6f);
+				building.transform.localScale = new Vector3 (0.3f, scale, 0.3f);
 			}
 
 			else if (result <= 3) {
@@ -141,12 +141,12 @@ public class Buildings : MonoBehaviour {
 			} else if (result > 3 && result <= 5) {
 				String name = "preFabs/" + "toyHouse" + UnityEngine.Random.Range (1, 7).ToString ();
 				building = (GameObject)Instantiate (Resources.Load (name));
-				building.transform.localScale = new Vector3 (0.5f, 1, 0.5f);
+				building.transform.localScale = new Vector3 (0.2f, 1, 0.2f);
 			} 
 			else {
 				String name = "preFabs/" + "toyHouse" + UnityEngine.Random.Range (1, 7).ToString ();
 				building = (GameObject)Instantiate (Resources.Load (name));
-				building.transform.localScale = new Vector3 (0.5f, 2, 0.5f);
+				building.transform.localScale = new Vector3 (0.2f, 2, 0.2f);
 			}
 			building.transform.position = buildingPositions[i];
 			building.name = "house_" + i.ToString();

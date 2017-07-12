@@ -7,10 +7,13 @@ public class BuildProceduralCity : MonoBehaviour {
 	public int width;
 	public int height;
 	public int initialSpacing = 4; 				//All points initially generated are spaced by this number
+	public float mean = 6f;
+	public float std_dev = 2f;
 	public float probabilityThreshold = 0.8f;
 	public float ThresholdDistance;
 	public int seed;
 	public float offsetFromRoad;
+
 
 	/// <summary>
 	//The variables below are made public so that other classes can access them.
@@ -31,6 +34,8 @@ public class BuildProceduralCity : MonoBehaviour {
 		Roads road = new Roads ();
 		road.width = width;
 		road.height = height;
+		road.mean = mean;
+		road.std_dev = std_dev;
 		road.generateRandomPoints ();
 		road.returnEdges ();
 		edges = road.edges;
@@ -48,13 +53,7 @@ public class BuildProceduralCity : MonoBehaviour {
 		buildings.putBuildingsWithPerlinNoise ();
 		houses = buildings.houses;
 
-		Debug.Log ("dfs start");
-		//do a dfs procedure to ensure that every road sub-graph is connected to every other.
-		dfs DFS = new dfs ();
-		DFS.initialise ();
-		subGraphPoints = DFS.dfsUtil ();
-		Debug.Log (subGraphPoints.Count);
-		Debug.Log ("dfs end");
+	
 
 		scatterHouses ();
 		removeIntersections ();
@@ -151,12 +150,6 @@ public class BuildProceduralCity : MonoBehaviour {
 		}
 		//scatter some houses and tress outside the width and height area to get the seamless blend
 	}
-
-	//function to place a unit cube at a given point - helper function
-	void placePrefab(Vector3 point){
-		GameObject building;
-		building = (GameObject)Instantiate (Resources.Load ("preFabs/cubePrefab1" ));
-		building.transform.position = point;
-	}
+	
 
 }
