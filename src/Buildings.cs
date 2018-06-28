@@ -2,7 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+//------------------------------------------------------------------------------------------------
+// Helper class to lay buildings for a the Procedural city building application
+// The approach used :
+// Either randomly put buildings on grid positions, or use perlin noise
+// to distribute buildings in the grid. Delete buildings that intersect roads.
+// Additionally, on either side of the road/edge, draw parallel lines,
+// use points on those parallel lines to place buildings. This gives the effect 
+// of buildings on either side of the road.
+//------------------------------------------------------------------------------------------------
 public class Buildings : MonoBehaviour {
 
 	public int width;
@@ -43,10 +51,9 @@ public class Buildings : MonoBehaviour {
 			maxy = b.z;
 		}
 
-		//two points p1, p2
-		//assume x = minx
-
-		//whats the offset of the buildings from the roads -> c
+		// two points p1, p2
+		// assume x = minx
+		// the offset of the buildings from the roads -> c
 		c = -2f;
 		float p1x = minx;
 		float p1y = slope * p1x + (intercept + c);
@@ -55,12 +62,6 @@ public class Buildings : MonoBehaviour {
 		float p2y = slope * p2x + (intercept + c);
 
 		//////////////////////////////////
-		/*float p3y = miny;
-		float p3x = (p3y - (intercept-c))/slope;
-		
-		float p4y = maxy;
-		float p4x = (p4y - (intercept-c))/slope;
-		*/
 		float p3x = minx;
 		float p3y = slope * p3x + (intercept - c);
 		
@@ -89,7 +90,7 @@ public class Buildings : MonoBehaviour {
 			Vector3 buildingPos1 = returnPoint(point1, point2, r); 
 			Vector3 buildingPos2 = returnPoint(point3, point4, r); 
 
-			//check if buildingPos is okay
+			//check if buildingPos is okay, no intersections
 			if(checkBuildingValidPos(buildingPos1)){
 				putBuilding(buildingPos1);
 				buildings.Add (buildingPos1);
@@ -115,6 +116,7 @@ public class Buildings : MonoBehaviour {
 		buildingPositions.Add (pos);
 	}
 
+	// use the perlin noise function to find points to instantiate unity prefabs 
 	public void putBuildingsWithPerlinNoise(){
 
 		for (int i=0; i<buildingPositions.Count; i++) {

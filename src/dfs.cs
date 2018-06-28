@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//------------------------------------------------------------------------------------------------
+// Helper class that performs depth first search on a graph
+//------------------------------------------------------------------------------------------------
 public class dfs : MonoBehaviour {
 
 	public Dictionary <Vector3, List<Vector3> > roadWays = Roads.neighbourGraph;

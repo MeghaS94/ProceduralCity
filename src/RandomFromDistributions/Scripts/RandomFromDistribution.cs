@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//------------------------------------------------------------------------------------------------
+// Borrowed this file from the internet to get random distribution functions
+//------------------------------------------------------------------------------------------------
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

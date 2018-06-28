@@ -3,22 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+//------------------------------------------------------------------------------------------------
+// The main function to build a procedural city, defining some variables.
+// Main functionality :
+// Scatter buildings, place roads, make sure every road is reachable from every other
+// Ensure buildings lie along the edges of the road.
+// Try to minimize building road intersections.
+//------------------------------------------------------------------------------------------------
 public class BuildProceduralCity : MonoBehaviour {
-	public int width;
-	public int height;
-	public int initialSpacing = 4; 				//All points initially generated are spaced by this number
-	public float mean = 6f;
-	public float std_dev = 2f;
-	public float probabilityThreshold = 0.8f;
-	public float ThresholdDistance;
-	public int seed;
-	public float offsetFromRoad;
+	public int	width;
+	public int 	height;
+	public int 	initialSpacing = 4; 		//All points initially generated are spaced by this number
+	public float 	mean = 6f;
+	public float 	std_dev = 2f;
+	public float 	probabilityThreshold = 0.8f;
+	public int 	seed;
+	public float 	offsetFromRoad;
 
 
 	/// <summary>
 	//The variables below are made public so that other classes can access them.
 	/// </summary>
-	public List<List<Vector3> > edges = new List< List<Vector3> >(); //how many roads actually exist
+	public List<List<Vector3> > edges = new List< List<Vector3> >(); //number of roads
 
 	//All the roads and all the valid building positions
 	List<GameObject> roads = new List<GameObject>();
@@ -36,14 +42,16 @@ public class BuildProceduralCity : MonoBehaviour {
 		road.height = height;
 		road.mean = mean;
 		road.std_dev = std_dev;
+		// generate random grid positions
 		road.generateRandomPoints ();
 		road.returnEdges ();
 		edges = road.edges;
 
-
+		// place roads
 		road.placeRoads ();
 		roads = road.roads;
 
+		// place buildings
 		Buildings buildings = new Buildings ();
 		buildings.width = width;
 		buildings.height = height;
@@ -52,8 +60,6 @@ public class BuildProceduralCity : MonoBehaviour {
 		buildings.placeBuildings ();
 		buildings.putBuildingsWithPerlinNoise ();
 		houses = buildings.houses;
-
-	
 
 		scatterHouses ();
 		removeIntersections ();
